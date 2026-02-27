@@ -10,6 +10,9 @@ pub struct AppConfig {
     /// How many seconds to sleep between each health-check probe
     pub health_check_interval_secs: u64,
 
+    // --- Base Configuration ---
+    pub openclaw_cmd: String,
+
     // --- SSH Tunnel Configuration ---
     pub ssh_host: String,
     pub ssh_user: String,
@@ -17,6 +20,10 @@ pub struct AppConfig {
     pub ssh_key_path: Option<String>,
     pub local_port: u16,
     pub remote_port: u16,
+
+    // --- Node Service Configuration ---
+    pub node_host: String,
+    pub node_port: u16,
 }
 
 impl Default for AppConfig {
@@ -24,12 +31,20 @@ impl Default for AppConfig {
         Self {
             gateway_url: "http://127.0.0.1:18789".to_string(),
             health_check_interval_secs: 5,
+            openclaw_cmd: if cfg!(windows) {
+                "openclaw.cmd"
+            } else {
+                "openclaw"
+            }
+            .to_string(),
             ssh_host: "".to_string(),
             ssh_user: "".to_string(),
             ssh_port: 22,
             ssh_key_path: None,
             local_port: 18789,
             remote_port: 18789,
+            node_host: "127.0.0.1".to_string(),
+            node_port: 18789,
         }
     }
 }

@@ -26,7 +26,7 @@
 
 **WebSocket Node 客户端**
 
-- [ ] 连接 Gateway WS 作为 node（`ws://127.0.0.1:18789`）
+- [x] 连接 Gateway WS 作为 node（`ws://127.0.0.1:18789`）
 - [ ] 处理 `node.*` RPC 握手 + 保持心跳
 - [ ] 节点配对流程 UI（approval prompt）
 

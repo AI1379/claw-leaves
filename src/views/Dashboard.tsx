@@ -1,5 +1,6 @@
 import { StatusCard } from "../components/StatusCard";
 import { TunnelStatusCard } from "../components/TunnelStatusCard";
+import { NodeStatusCard } from "../components/NodeStatusCard";
 import { Wifi } from "lucide-react";
 
 export function Dashboard() {
@@ -22,12 +23,7 @@ export function Dashboard() {
                     </section>
                     <section className="section">
                         <h2 className="section__title">Node Service</h2>
-                        <div className="placeholder">
-                            <span className="placeholder__badge">Soon</span>
-                            <div className="placeholder__text">
-                                Node Service management will be implemented here.
-                            </div>
-                        </div>
+                        <NodeStatusCard />
                     </section>
                 </div>
             </div>

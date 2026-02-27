@@ -1,5 +1,6 @@
 mod config;
 mod health;
+mod node_manager;
 mod tray;
 mod tunnel;
 
@@ -12,6 +13,7 @@ pub fn run() {
 
     tauri::Builder::default()
         .manage(tunnel::TunnelManager::new())
+        .manage(node_manager::NodeManager::new())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_notification::init())
@@ -25,6 +27,9 @@ pub fn run() {
 
             let tunnel_manager = app.handle().state::<tunnel::TunnelManager>();
             tunnel::start_tunnel_monitor(app.handle().clone(), tunnel_manager);
+
+            let node_manager = app.handle().state::<node_manager::NodeManager>();
+            node_manager::start_node_monitor(app.handle().clone(), node_manager);
 
             Ok(())
         })
@@ -40,6 +45,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             tunnel::open_ssh_tunnel,
             tunnel::close_ssh_tunnel,
+            node_manager::open_node_service,
+            node_manager::close_node_service,
             config::get_config,
             config::save_config,
         ])

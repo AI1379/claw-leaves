@@ -10,8 +10,14 @@ export interface GatewayStatusPayload {
 }
 
 export interface SSHTunnelStatusPayload {
-    status: "online" | "offline";
+    status: "online" | "offline" | "checking";
     local_port: number;
     remote_port: number;
     remote_host: string;
+}
+
+export interface NodeServiceStatusPayload {
+    status: NodeServiceStatus;
+    host: string;
+    port: number;
 }
