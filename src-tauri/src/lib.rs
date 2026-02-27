@@ -1,6 +1,9 @@
 mod config;
 mod health;
 mod tray;
+mod tunnel;
+
+use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -8,6 +11,7 @@ pub fn run() {
     let cfg_for_health = cfg.clone();
 
     tauri::Builder::default()
+        .manage(tunnel::TunnelManager::new())
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_notification::init())
@@ -18,6 +22,10 @@ pub fn run() {
         .setup(move |app| {
             tray::setup_tray(app)?;
             health::start_health_checker(app.handle().clone(), cfg_for_health);
+
+            let tunnel_manager = app.handle().state::<tunnel::TunnelManager>();
+            tunnel::start_tunnel_monitor(app.handle().clone(), tunnel_manager);
+
             Ok(())
         })
         .on_window_event(|window, event| match event {
@@ -29,7 +37,12 @@ pub fn run() {
             }
             _ => {}
         })
-        .invoke_handler(tauri::generate_handler![])
+        .invoke_handler(tauri::generate_handler![
+            tunnel::open_ssh_tunnel,
+            tunnel::close_ssh_tunnel,
+            config::get_config,
+            config::save_config,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

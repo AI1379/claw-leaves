@@ -20,9 +20,9 @@
 
 **SSH 隧道管理器**
 
-- [ ] 启动 / 停止 `ssh -N -L 18789:127.0.0.1:18789 user@host` 子进程
+- [x] 启动 / 停止 `ssh -N -L 18789:127.0.0.1:18789 user@host` 子进程
 - [ ] 自动重连（指数退避策略）
-- [ ] 向前端广播隧道状态事件（connecting / connected / error）
+- [x] 向前端广播隧道状态事件（connecting / connected / error）
 
 **WebSocket Node 客户端**
 
@@ -32,7 +32,7 @@
 
 **设置页**
 
-- [ ] SSH 目标：host / user / port / identity file
+- [x] SSH 目标：host / user / port / identity file
 - [ ] 连接模式切换（SSH 隧道 / Local / Direct WS）
 
 **Exec 宿主**

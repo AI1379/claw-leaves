@@ -9,6 +9,14 @@ pub struct AppConfig {
 
     /// How many seconds to sleep between each health-check probe
     pub health_check_interval_secs: u64,
+
+    // --- SSH Tunnel Configuration ---
+    pub ssh_host: String,
+    pub ssh_user: String,
+    pub ssh_port: u16,
+    pub ssh_key_path: Option<String>,
+    pub local_port: u16,
+    pub remote_port: u16,
 }
 
 impl Default for AppConfig {
@@ -16,6 +24,12 @@ impl Default for AppConfig {
         Self {
             gateway_url: "http://127.0.0.1:18789".to_string(),
             health_check_interval_secs: 5,
+            ssh_host: "".to_string(),
+            ssh_user: "".to_string(),
+            ssh_port: 22,
+            ssh_key_path: None,
+            local_port: 18789,
+            remote_port: 18789,
         }
     }
 }
@@ -64,4 +78,13 @@ pub fn save(cfg: &AppConfig) -> Result<(), Box<dyn std::error::Error>> {
     let yaml = serde_yaml::to_string(cfg)?;
     fs::write(&path, yaml)?;
     Ok(())
+}
+#[tauri::command]
+pub fn get_config() -> AppConfig {
+    load()
+}
+
+#[tauri::command]
+pub fn save_config(cfg: AppConfig) -> Result<(), String> {
+    save(&cfg).map_err(|e| e.to_string())
 }

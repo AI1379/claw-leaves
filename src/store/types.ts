@@ -8,3 +8,10 @@ export interface GatewayStatusPayload {
     url: string;
     latency_ms: number | null;
 }
+
+export interface SSHTunnelStatusPayload {
+    status: "online" | "offline";
+    local_port: number;
+    remote_port: number;
+    remote_host: string;
+}

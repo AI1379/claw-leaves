@@ -1,4 +1,5 @@
 import { Settings as SettingsIcon } from "lucide-react";
+import { TunnelConfig } from "../components/TunnelConfig";
 
 export function Config() {
     return (
@@ -8,12 +9,7 @@ export function Config() {
                 <h1 className="view__title">Config</h1>
             </div>
             <div className="view__content">
-                <div className="placeholder">
-                    <span className="placeholder__badge">Milestone 2</span>
-                    <p className="placeholder__text">
-                        SSH tunnel settings and connection mode will be configured here.
-                    </p>
-                </div>
+                <TunnelConfig />
             </div>
         </div>
     );

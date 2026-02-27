@@ -297,3 +297,153 @@ body {
     line-height: 1.5;
   }
 }
+
+/* Config Panel & Form Styling */
+.config-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 600px;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    input {
+      background-color: #1e1f22;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      padding: 10px;
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: var(--accent-color);
+      }
+
+      &::placeholder {
+        color: #4f5660;
+      }
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  &__actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.config-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 8px 0;
+}
+
+/* Alerts */
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 1px solid transparent;
+
+  &--success {
+    background-color: rgba(35, 165, 90, 0.1);
+    color: #23a55a;
+    border-color: rgba(35, 165, 90, 0.2);
+  }
+
+  &--error {
+    background-color: rgba(242, 63, 66, 0.1);
+    color: #f23f42;
+    border-color: rgba(242, 63, 66, 0.2);
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+
+  &--primary {
+    background-color: var(--accent-color);
+    color: white;
+
+    &:hover {
+      background-color: var(--accent-hover);
+    }
+
+    &:disabled {
+      background-color: #4f5660;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Status Card Button Adjustment */
+.status-card__button {
+  width: 100%;
+  padding: 8px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
+
+  &--stop {
+    background-color: #f23f42;
+
+    &:hover {
+      background-color: #da373c;
+    }
+  }
+
+  &:disabled {
+    background-color: #4f5660;
+    cursor: not-allowed;
+  }
+}

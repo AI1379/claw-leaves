@@ -9,18 +9,12 @@ const STATUS_LABEL: Record<SSHTunnelStatus, string> = {
 };
 
 export function TunnelStatusCard() {
-    const { tunnelStatus, tunnelEndpoint } = useAppStore();
+    const { tunnelStatus, tunnelEndpoint, localPort, openTunnel, closeTunnel } = useAppStore();
 
     return (
-        <div className={clsx("status-card", `status-card--tunnel-${tunnelStatus}`)}>
+        <div className={clsx("status-card", `status-card--${tunnelStatus}`)}>
             <div className="status-card__header">
-                {tunnelStatus === "online" ? (
-                    <Shield size={18} className="text-success" />
-                ) : tunnelStatus === "checking" ? (
-                    <Loader2 size={18} className="animate-spin" />
-                ) : (
-                    <ShieldOff size={18} className="text-muted" />
-                )}
+                <span className="status-card__dot"></span>
                 <span className="status-card__label">SSH Tunnel</span>
                 <span className="status-card__badge">
                     {STATUS_LABEL[tunnelStatus]}
@@ -31,6 +25,28 @@ export function TunnelStatusCard() {
                 <div className="status-card__row">
                     <span className="status-card__key">Endpoint</span>
                     <span className="status-card__val">{tunnelEndpoint || "Disconnected"}</span>
+                </div>
+                <div className="status-card__row">
+                    <span className="status-card__key">Local Port</span>
+                    <span className="status-card__val">{localPort || "Disconnected"}</span>
+                </div>
+                <div className="status-card__row">
+                    {tunnelStatus === "online" ? (
+                        <button
+                            className="status-card__button status-card__button--stop"
+                            onClick={() => closeTunnel()}
+                        >
+                            Stop Tunnel
+                        </button>
+                    ) : (
+                        <button
+                            className="status-card__button"
+                            onClick={() => openTunnel()}
+                            disabled={tunnelStatus === "checking"}
+                        >
+                            {tunnelStatus === "checking" ? "Connecting..." : "Open Tunnel"}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
