@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "claw-leaves",
+  "productName": "Claw Leaves",
   "version": "0.1.0",
   "identifier": "com.liste.claw-leaves",
   "build": {
@@ -12,11 +12,20 @@
   "app": {
     "windows": [
       {
-        "title": "claw-leaves",
-        "width": 800,
-        "height": 600
+        "label": "main",
+        "title": "Claw Leaves",
+        "width": 960,
+        "height": 640,
+        "minWidth": 800,
+        "minHeight": 540,
+        "decorations": true,
+        "visible": true
       }
     ],
+    "trayIcon": {
+      "id": "main",
+      "iconPath": "icons/32x32.png"
+    },
     "security": {
       "csp": null
     }
