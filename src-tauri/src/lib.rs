@@ -20,6 +20,15 @@ pub fn run() {
             health::start_health_checker(app.handle().clone(), cfg_for_health);
             Ok(())
         })
+        .on_window_event(|window, event| match event {
+            tauri::WindowEvent::CloseRequested { api, .. } => {
+                if window.label() == "main" {
+                    window.hide().unwrap();
+                    api.prevent_close();
+                }
+            }
+            _ => {}
+        })
         .invoke_handler(tauri::generate_handler![])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -4,13 +4,13 @@
 
 目标：应用能跑起来，托盘图标可见，Dashboard 有基础 UI，Gateway 健康状态可观测。
 
-- [ ] 安装所需 Tauri 插件（store、notification、autostart）
-- [ ] 系统托盘图标 + 右键菜单（退出、显示主窗口）
-- [ ] 主窗口基础 UI（Discord / Telegram 风格）
-  - [ ] 侧边栏导航（Overview / Config / Exec / Log）
-  - [ ] 状态总览面板（Gateway 连接状态卡片）
-- [ ] `tauri-plugin-store` 配置持久化基础
-- [ ] Gateway 健康检查（HTTP/WS 探测）+ 状态展示
+- [x] 安装所需 Tauri 插件（store、notification、autostart）
+- [x] 系统托盘图标 + 右键菜单（退出、显示主窗口）
+- [x] 主窗口基础 UI（Discord / Telegram 风格）
+  - [x] 侧边栏导航（Overview / Config / Exec / Log）
+  - [x] 状态总览面板（Gateway 连接状态卡片）
+- [x] `tauri-plugin-store` 配置持久化基础
+- [x] Gateway 健康检查（HTTP/WS 探测）+ 状态展示
 
 ---
 
