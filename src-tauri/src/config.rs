@@ -2,6 +2,20 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub enum ForwardType {
+    Local,
+    Reverse,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SshTunnelConfig {
+    pub local_port: u16,
+    pub remote_port: u16,
+    pub forward_type: ForwardType,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AppConfig {
     /// The URL to probe for Gateway health checks (e.g. "http://127.0.0.1:18789")
@@ -18,8 +32,8 @@ pub struct AppConfig {
     pub ssh_user: String,
     pub ssh_port: u16,
     pub ssh_key_path: Option<String>,
-    pub local_port: u16,
-    pub remote_port: u16,
+    pub tunnels: Vec<SshTunnelConfig>,
+    pub ssh_backoff_min_secs: u64,
 
     // --- Node Service Configuration ---
     pub node_host: String,
@@ -41,8 +55,12 @@ impl Default for AppConfig {
             ssh_user: "".to_string(),
             ssh_port: 22,
             ssh_key_path: None,
-            local_port: 18789,
-            remote_port: 18789,
+            tunnels: vec![SshTunnelConfig {
+                local_port: 18789,
+                remote_port: 18789,
+                forward_type: ForwardType::Local,
+            }],
+            ssh_backoff_min_secs: 2,
             node_host: "127.0.0.1".to_string(),
             node_port: 18789,
         }

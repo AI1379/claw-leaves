@@ -84,15 +84,20 @@ pub async fn close_node_service(
         // TODO: Current implementation is not that good, but it works.
         // A better way must be found if we want to capture the stdout and stderr.
         if cfg!(windows) {
-            let _ = Command::new("taskkill")
-                .arg("/F")
+            let mut cmd = Command::new("taskkill");
+            cmd.arg("/F")
                 .arg("/T")
                 .arg("/PID")
-                .arg(child.id().to_string())
-                .spawn()
-                .unwrap()
-                .wait()
-                .unwrap();
+                .arg(child.id().to_string());
+
+            #[cfg(windows)]
+            {
+                use std::os::windows::process::CommandExt;
+                const CREATE_NO_WINDOW: u32 = 0x08000000;
+                cmd.creation_flags(CREATE_NO_WINDOW);
+            }
+
+            let _ = cmd.spawn().unwrap().wait().unwrap();
         } else {
             let _ = child
                 .kill()

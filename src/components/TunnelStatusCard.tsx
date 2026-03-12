@@ -1,15 +1,16 @@
 import { useAppStore, type SSHTunnelStatus } from "../store/appStore";
-import { Shield, ShieldOff, Loader2 } from "lucide-react";
 import clsx from "clsx";
 
-const STATUS_LABEL: Record<SSHTunnelStatus, string> = {
+const STATUS_LABEL: Record<SSHTunnelStatus | "reconnecting", string> = {
     online: "Active",
     offline: "Inactive",
     checking: "Connecting…",
+    reconnecting: "Reconnecting…",
 };
 
 export function TunnelStatusCard() {
-    const { tunnelStatus, tunnelEndpoint, localPort, openTunnel, closeTunnel } = useAppStore();
+    const { tunnelStatus, tunnelEndpoint, tunnels, openTunnel, closeTunnel } = useAppStore();
+    const portCount = tunnels?.length || 0;
 
     return (
         <div className={clsx("status-card", `status-card--${tunnelStatus}`)}>
@@ -27,8 +28,8 @@ export function TunnelStatusCard() {
                     <span className="status-card__val">{tunnelEndpoint || "Disconnected"}</span>
                 </div>
                 <div className="status-card__row">
-                    <span className="status-card__key">Local Port</span>
-                    <span className="status-card__val">{localPort || "Disconnected"}</span>
+                    <span className="status-card__key">Tunnels</span>
+                    <span className="status-card__val">{portCount > 0 ? `${portCount} active` : "None"}</span>
                 </div>
                 <div className="status-card__row">
                     {tunnelStatus === "online" ? (

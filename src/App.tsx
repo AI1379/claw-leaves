@@ -4,6 +4,7 @@ import { Dashboard } from "./views/Dashboard";
 import { Config } from "./views/Config";
 import { Exec } from "./views/Exec";
 import { Log } from "./views/Log";
+import { Toaster } from "sonner";
 import "./App.scss";
 
 function App() {
@@ -25,12 +26,15 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Sidebar />
-      <main className="main-content">
-        {renderView()}
-      </main>
-    </div>
+    <>
+      <div className="app-container">
+        <Sidebar />
+        <main className="main-content">
+          {renderView()}
+        </main>
+      </div>
+      <Toaster position="bottom-right" richColors />
+    </>
   );
 }
 
